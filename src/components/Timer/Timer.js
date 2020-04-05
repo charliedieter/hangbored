@@ -7,7 +7,7 @@ import { playSound } from '../../utils/soundUtils';
 import { pad } from '../../utils/timeUtils';
 import { TimerWrapper, TimerText } from './styles';
 
-// props = hang, pause, reps, rep_rest, sets, set_rest
+// props: hang, pause, reps, rep_rest, sets, set_rest
 class Timer extends React.Component {
   constructor(props) {
     super(props);
@@ -106,6 +106,12 @@ class Timer extends React.Component {
     return Math.ceil(this.state.elapsed / 1000);
   }
 
+  async handleSound(nextStep) {
+    try {
+      await playSound(nextStep);
+    } catch (error) {}
+  }
+
   run = () => {
     let nextStepIdx = this.state.currStepIdx;
     let currSet = this.state.currSet;
@@ -119,22 +125,10 @@ class Timer extends React.Component {
       return this.complete();
     }
     if (this.state.currStepIdx !== nextStepIdx) {
-      switch (step.type) {
-        case 'rep_rest':
-          playSound(1);
-          break;
-        case 'set_rest':
-          playSound(2);
-          break;
-        case 'hang':
-          playSound(0);
-          break;
-        default:
-          break;
-      }
+      this.handleSound(step.type);
     }
 
-    this.setState(p => ({
+    this.setState((p) => ({
       elapsed: p.runningTotal + (Date.now() - p.startTime),
       timeoutID: setTimeout(this.run, 50),
       toGo: step.end - this.elapsedSeconds,
@@ -144,25 +138,23 @@ class Timer extends React.Component {
   };
 
   complete() {
-    playSound(3);
-    alert('finished');
+    // playSound(3);
+    alert('🎉💪👩‍🎤');
   }
 
   start = () => {
-    playSound(0).then(() => {
-      this.setState(
-        {
-          startTime: Date.now(),
-        },
-        this.run,
-      );
-    });
+    this.setState(
+      {
+        startTime: Date.now(),
+      },
+      this.run,
+    );
   };
 
   pause = () => {
     clearTimeout(this.state.timeoutID);
 
-    this.setState(p => ({
+    this.setState((p) => ({
       timeoutID: null,
       startTime: null,
       runningTotal: p.elapsed,
@@ -177,7 +169,7 @@ class Timer extends React.Component {
     return `${pad(min)}:${pad(secs)}`;
   };
 
-  countdown = s => {
+  countdown = (s) => {
     if (s <= 0) {
       return this.setState(
         {
@@ -208,8 +200,8 @@ class Timer extends React.Component {
     this.countdown(3);
   };
 
-  skip = dir =>
-    this.setState(prevState => ({
+  skip = (dir) =>
+    this.setState((prevState) => ({
       currStepIdx: prevState.currStepIdx + dir,
     }));
 

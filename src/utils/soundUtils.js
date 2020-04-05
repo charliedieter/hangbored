@@ -1,16 +1,32 @@
-// import { Audio } from "expo-av";
+import Sound from 'react-native-sound';
 
-const ding1 = require(`../../assets/sounds/ding1.mp3`);
-const ding2 = require(`../../assets/sounds/ding2.mp3`);
-const levelup = require(`../../assets/sounds/levelup.mp3`);
-const success = require(`../../assets/sounds/success.mp3`);
+const SOUNDS = ['count', 'start', 'end', 'success', 'final_success'];
 
-const SOUNDS = [ding1, ding2, success, levelup];
+function loadSound(name) {}
 
-export async function playSound(idx) {
+/**
+ * 'To minimize playback delay, you may want to preload a sound file during app initialization.' --https://github.com/zmxv/react-native-sound
+ */
+export async function loadSounds() {
+  var whoosh = new Sound('whoosh.mp3', Sound.MAIN_BUNDLE, (error) => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        whoosh.getDuration() +
+        'number of channels: ' +
+        whoosh.getNumberOfChannels(),
+    );
+  });
+}
+
+export async function playSound(name) {
   // const soundObject = new Audio.Sound();
   // try {
-  //   await soundObject.loadAsync(SOUNDS[idx]);
+  //   await soundObject.loadAsync(SOUNDS[name]);
   //   await soundObject.playAsync();
   // } catch (error) {
   //   console.log(error);

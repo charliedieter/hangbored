@@ -24,7 +24,7 @@ function MainStack() {
         name="Workouts"
         component={WorkoutListScreen}
         options={{
-          headerTitle: props => <Header {...props} />,
+          headerTitle: (props) => <Header {...props} />,
           headerStyle: {
             backgroundColor: colors.background,
           },
