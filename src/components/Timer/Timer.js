@@ -1,9 +1,10 @@
 import React from 'react';
+import { activateKeepAwake, deactivateKeepAwake } from 'expo-keep-awake';
 
 import { Row, FlexText } from '../';
 import BottomRow from './BottomRow';
 import Button from '../../components/Button';
-import { playSound } from '../../utils/soundUtils';
+import { playSound, PRELOADED_SOUNDS } from '../../utils/soundUtils';
 import { pad } from '../../utils/timeUtils';
 import { TimerWrapper, TimerText } from './styles';
 
@@ -106,9 +107,9 @@ class Timer extends React.Component {
     return Math.ceil(this.state.elapsed / 1000);
   }
 
-  async handleSound(nextStep) {
+  async handleSound(name) {
     try {
-      await playSound(nextStep);
+      await playSound(name);
     } catch (error) {}
   }
 
@@ -125,7 +126,22 @@ class Timer extends React.Component {
       return this.complete();
     }
     if (this.state.currStepIdx !== nextStepIdx) {
-      this.handleSound(step.type);
+      let sound = '';
+      switch (step.type) {
+        case 'rep_rest':
+          sound = 'end';
+          break;
+        case 'set_rest':
+          currSet++; // take this opportunity to increment the step
+          sound = 'success';
+          break;
+        case 'hang':
+          sound = 'start';
+          break;
+        default:
+          break;
+      }
+      this.handleSound(sound);
     }
 
     this.setState((p) => ({
@@ -138,11 +154,13 @@ class Timer extends React.Component {
   };
 
   complete() {
-    // playSound(3);
-    alert('🎉💪👩‍🎤');
+    deactivateKeepAwake();
+    alert("get final_success to work and you're done 🎉💪👩‍🎤");
   }
 
   start = () => {
+    activateKeepAwake();
+
     this.setState(
       {
         startTime: Date.now(),
@@ -171,14 +189,17 @@ class Timer extends React.Component {
 
   countdown = (s) => {
     if (s <= 0) {
-      return this.setState(
-        {
-          buttonText: 'pause',
-        },
-        this.start,
-      );
+      return this.handleSound('start').then(() => {
+        this.setState(
+          {
+            buttonText: 'pause',
+          },
+          this.start,
+        );
+      });
     }
 
+    this.handleSound('count');
     this.setState(
       {
         buttonText: s,

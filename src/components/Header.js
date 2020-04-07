@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components/native";
+import React from 'react';
+import styled from 'styled-components/native';
 
-import { colors } from "../utils/constants";
+import { colors } from '../utils/constants';
 
 const Container = styled.View`
   align-items: center;
@@ -12,7 +12,7 @@ const LogoTitle = styled.Text`
   color: ${colors.primary};
   width: 100%;
   text-align: left;
-  font-family: "Montserrat-Black";
+  font-family: 'Montserrat-Black';
   font-size: 20px;
 `;
 

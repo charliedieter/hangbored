@@ -199,7 +199,12 @@ android {
     }
 }
 
+// for expo to work
+apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
+
 dependencies {
+    addUnimodulesDependencies() // for expo-keep-awake to work
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
