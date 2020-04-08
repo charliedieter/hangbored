@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { colors } from "../utils/constants";
+import styled from 'styled-components/native';
+import { colors } from '../utils/constants';
 
 export const Page = styled.View`
   flex: 1;
@@ -9,12 +9,9 @@ export const Page = styled.View`
 export const H1 = styled.Text`
   background: ${colors.background};
   color: ${colors.primary};
-  font-family: "Montserrat-Black";
+  font-family: 'Montserrat-Black';
   font-size: 46px;
   font-weight: 900;
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  padding-horizontal: 10px;
   width: 100%;
 `;
 
@@ -26,7 +23,7 @@ export const UnderlineWrapper = styled.View`
 
 export const H2 = styled.Text`
   color: ${colors.secondary};
-  font-family: "Montserrat-Black";
+  font-family: 'Montserrat-Black';
   font-size: 24px;
   font-weight: 600;
 `;
@@ -61,23 +58,23 @@ export const RowItemWrapper = styled.View`
 
 export const RowData = styled.Text`
   color: ${colors.text};
-  font-family: "Montserrat-SemiBold";
+  font-family: 'Montserrat-SemiBold';
   font-size: 18px;
   font-weight: 600;
 `;
 
 export const RowLabel = styled.Text`
   color: ${colors.accentText};
-  font-family: "Montserrat-Black";
+  font-family: 'Montserrat-Black';
   font-size: 15px;
 `;
 
 export const FlexText = styled.Text`
   color: ${colors.text};
   flex: 1;
-  font-family: "Montserrat-Black";
+  font-family: 'Montserrat-Black';
   font-size: 40px;
   font-weight: 900;
-  opacity: ${props => (props.isActive ? 1 : 0.4)};
+  opacity: ${(props) => (props.isActive ? 1 : 0.4)};
   text-align: center;
 `;

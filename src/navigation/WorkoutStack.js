@@ -8,15 +8,15 @@ import { colors } from '../utils/constants';
 
 const Tab = createMaterialTopTabNavigator();
 
-const Community = () => null;
+const Others = () => null;
 
 export default () => {
   return (
     <Tab.Navigator
       swipeEnabled={false}
       screenOptions={{
-        cardStyle: {
-          backgroundColor: colors.background,
+        style: {
+          backgroundColor: 'pink',
         },
       }}
       tabBarOptions={{
@@ -28,7 +28,7 @@ export default () => {
         },
       }}>
       <Tab.Screen name="Me" component={WorkoutListScreen} />
-      <Tab.Screen name="Community" component={Community} />
+      <Tab.Screen name="Others" component={Others} />
     </Tab.Navigator>
   );
 };

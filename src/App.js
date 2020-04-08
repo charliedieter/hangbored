@@ -3,6 +3,7 @@ import { SafeAreaView, StatusBar, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ModalStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -14,7 +15,6 @@ import NewWorkoutModal from './screens/NewWorkoutModal';
 
 import { loadSounds } from './utils/soundUtils';
 import { colors } from './utils/constants';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Profile = () => null;
 
